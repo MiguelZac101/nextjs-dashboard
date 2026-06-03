@@ -3,6 +3,20 @@ import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
 import { fetchCustomers, fetchInvoiceById } from '@/app/lib/data';
 import { notFound } from 'next/dist/client/components/navigation.react-server';
 
+import { Metadata } from 'next';
+
+
+export async function generateMetadata(
+    { params }: { params: Promise<{ id: string }> }
+): Promise<Metadata> {
+    const { id } = await params;
+    return {
+        title: `Factura ${id} - Detalles`,
+        description: `Visualiza y edita la factura con ID: ${id}`,
+    };
+}
+
+
 export default async function Page(props: { params: Promise<{ id: string }> }) {
     const params = await props.params;
     const id = params.id;
